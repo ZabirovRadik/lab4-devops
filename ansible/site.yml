@@ -91,3 +91,14 @@
         owner: root
         group: root
         mode: '0755'
+
+    - name: Проверить доступность сервиса
+      uri:
+        url: http://127.0.0.1:8000/
+        status_code: 200
+        return_content: yes
+      register: healthcheck
+
+    - name: Вывести результат проверки
+      debug:
+        msg: "HTTP {{ healthcheck.status }} — страница раздаётся"
